@@ -1,0 +1,10 @@
+D:\myProjects\SpaceColony\bin\Debug\SpaceColony.exe.config
+D:\myProjects\SpaceColony\bin\Debug\SpaceColony.exe
+D:\myProjects\SpaceColony\bin\Debug\SpaceColony.pdb
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.csprojAssemblyReference.cache
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.Properties.Resources.resources
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.csproj.GenerateResource.cache
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.exe
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.pdb
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.GameForm.resources
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.MenuForm.resources
