@@ -76,15 +76,25 @@ namespace SpaceColony
 
 		private void MenuStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Hide();
-			MenuForm menu = new MenuForm();
-			menu.ShowDialog();
-			Close();
+			DialogResult dialogResult = MessageBox.Show(
+				"Игра не сохранена. Вы действительно хотите выйти?",
+				"Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
+			{
+				Hide();
+				MenuForm menu = new MenuForm();
+				menu.ShowDialog();
+				Close();
+			}
 		}
 
 		private void ExitStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Application.Exit();
+			DialogResult dialogResult = MessageBox.Show(
+				"Игра не сохранена. Вы действительно хотите выйти?",
+				"Предупреждение", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
+				Application.Exit();
 		}
 
 		private void SaveStripMenuItem_Click(object sender, EventArgs e)
