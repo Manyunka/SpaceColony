@@ -13,7 +13,7 @@ namespace SpaceColony.view
 	{
 		public BaseView(Colony colony, string groupName) : base(colony, groupName)
 		{
-			BuildingBox.Text = BoxName;
+			Text = BoxName;
 			BuildingPicture.Image = Image.FromFile(BoxImagePath);
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
@@ -49,6 +49,6 @@ namespace SpaceColony.view
 		}
 
 		public override string BoxName => "Базы";
-		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, @"Pictures\base.png");
+		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "base.png");
 	}
 }

@@ -13,14 +13,14 @@ namespace SpaceColony.view
 	{
 		public CrystalsControlView(Colony colony, string groupName) : base(colony, groupName)
 		{
-			BuildingBox.Text = BoxName;
+			Text = BoxName;
 			BuildingPicture.Image = Image.FromFile(BoxImagePath);
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
 		}
 		public override string BoxName => "Управление добычи кристаллов";
-		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, @"Pictures\crystals_control.png");
+		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "crystals_control.png");
 
 		private void ImproveButton_Click(object sender, EventArgs e)
 		{

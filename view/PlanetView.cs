@@ -9,23 +9,20 @@ using System.Windows.Forms;
 
 namespace SpaceColony.view
 {
-	class PlanetView
+	class PlanetView : GroupBox
 	{
 		public PlanetView(string boxName, Planet planet)
 		{
 			BoxName = boxName;
 
-			PlanetBox = new GroupBox
-			{
-				Font = new Font("Comic Sans MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204))),
-				ForeColor = SystemColors.Info,
-				Location = new Point(3, 3),
-				Name = BoxName + "Box",
-				Size = new Size(215, 290),
-				TabIndex = 0,
-				TabStop = false,
-				Text = planet.Name
-			};
+			Font = new Font("Comic Sans MS", 14.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+			ForeColor = SystemColors.Info;
+			Location = new Point(3, 3);
+			Name = BoxName + "Box";
+			Size = new Size(215, 290);
+			TabIndex = 0;
+			TabStop = false;
+			Text = planet.Name;
 
 			PlanetPicture = new PictureBox
 			{
@@ -63,27 +60,22 @@ namespace SpaceColony.view
 				Size = new Size(200, 35),
 				TabIndex = 1,
 				Text = planet.Colony == null ? "Свободно" : "Колонизировано",
+				ForeColor = planet.Colony == null ? Color.Green : Color.Red,
 				TextAlign = ContentAlignment.MiddleCenter
 			};
 
-			PlanetBox.Controls.Add(PlanetPicture);
-			PlanetBox.Controls.Add(PlanetResources);
-			PlanetBox.Controls.Add(PlanetFree);
+			Controls.Add(PlanetPicture);
+			Controls.Add(PlanetResources);
+			Controls.Add(PlanetFree);
 
 		}
 
 		//public string PlanetName { get; }
 		public string BoxName { get; }
 		//public string BoxImagePath { get; }
-		public GroupBox PlanetBox { get; }
 		public PictureBox PlanetPicture { get; }
 		public Button PlanetFree { get; }
 		public Label PlanetResources { get; }
-
-		public GroupBox GetPlanetView()
-		{
-			return PlanetBox;
-		}
 
 	}
 }

@@ -15,20 +15,13 @@ namespace SpaceColony
 {
 	public partial class GameForm : Form
 	{
-		private Planet planet;
-		private Colony colony;
-		private LifeCycle lifeCycle;
+		private readonly Planet planet;
+		private readonly Colony colony;
 
-		private BaseView baseView;
-		private CrystalsControlView crystalsControlView;
-		private EnergyControlView energyControlView;
-		private CrystalsMinerView crystalsMinerView;
-		private EnergyMinerView energyMinerView;
 		public GameForm(Planet planet)
 		{
 			this.planet = planet;
 			colony = planet.Colony;
-			lifeCycle = new LifeCycle();
 
 			InitializeComponent();
 		}
@@ -39,17 +32,17 @@ namespace SpaceColony
 			colonyName.Text = "Колония: " + colony.Name;
 			ShowResources();
 
-			baseView = new BaseView(colony, "base");
-			crystalsControlView = new CrystalsControlView(colony, "crystalsControl");
-			energyControlView = new EnergyControlView(colony, "energyControl");
-			crystalsMinerView = new CrystalsMinerView(colony, "crystalsMiner");
-			energyMinerView = new EnergyMinerView(colony, "energyMiner");
+			var baseView = new BaseView(colony, "base");
+			var crystalsControlView = new CrystalsControlView(colony, "crystalsControl");
+			var energyControlView = new EnergyControlView(colony, "energyControl");
+			var crystalsMinerView = new CrystalsMinerView(colony, "crystalsMiner");
+			var energyMinerView = new EnergyMinerView(colony, "energyMiner");
 
-			buildingPanel.Controls.Add(baseView.GetBuildingView());
-			buildingPanel.Controls.Add(crystalsControlView.GetBuildingView());
-			buildingPanel.Controls.Add(energyControlView.GetBuildingView());
-			buildingPanel.Controls.Add(crystalsMinerView.GetBuildingView());
-			buildingPanel.Controls.Add(energyMinerView.GetBuildingView());
+			buildingPanel.Controls.Add(baseView);
+			buildingPanel.Controls.Add(crystalsControlView);
+			buildingPanel.Controls.Add(energyControlView);
+			buildingPanel.Controls.Add(crystalsMinerView);
+			buildingPanel.Controls.Add(energyMinerView);
 
 			colony.ChangeResources += () =>
 			{

@@ -55,12 +55,11 @@
     <Compile Include="model\buildings\CrystalsControl.cs" />
     <Compile Include="model\buildings\CrystalsMiner.cs" />
     <Compile Include="model\buildings\EnergyMiner.cs" />
-    <Compile Include="model\IMiner.cs" />
+    <Compile Include="model\buildings\IMiner.cs" />
     <Compile Include="model\resources\BaseResource.cs" />
     <Compile Include="model\resources\Crystals.cs" />
     <Compile Include="model\resources\Energy.cs" />
     <Compile Include="model\buildings\EnergyControl.cs" />
-    <Compile Include="model\LifeCycle.cs" />
     <Compile Include="model\buildings\Base.cs" />
     <Compile Include="model\buildings\Building.cs" />
     <Compile Include="model\Colony.cs" />
@@ -72,6 +71,7 @@
     </Compile>
     <Compile Include="model\Planet.cs" />
     <Compile Include="model\resources\Resources.cs" />
+    <Compile Include="model\Space.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="view\BaseView.cs" />

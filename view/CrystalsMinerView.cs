@@ -13,7 +13,7 @@ namespace SpaceColony.view
 	{
 		public CrystalsMinerView(Colony colony, string groupName) : base(colony, groupName)
 		{
-			BuildingBox.Text = BoxName;
+			Text = BoxName;
 			BuildingPicture.Image = Image.FromFile(BoxImagePath);
 
 			BuildButton.Click += BuildButton_Click;
@@ -21,7 +21,7 @@ namespace SpaceColony.view
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
 		}
 		public override string BoxName => "Кристальный рудник";
-		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, @"Pictures\crystals_miner.png");
+		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "crystals_miner.png");
 
 		private void ImproveButton_Click(object sender, EventArgs e)
 		{

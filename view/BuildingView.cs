@@ -9,23 +9,21 @@ using System.Windows.Forms;
 
 namespace SpaceColony.view
 {
-	abstract class BuildingView
+	abstract class BuildingView : GroupBox
 	{
 		protected Colony colony;
 		public BuildingView(Colony colony, string name)
 		{
 			this.colony = colony;
 			GroupName = name;
-			BuildingBox = new GroupBox
-			{
-				Name = GroupName,
-				Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204))),
-				ForeColor = SystemColors.Info,
-				Location = new Point(3, 3),
-				Size = new Size(320, 200),
-				TabIndex = 2,
-				TabStop = false,
-			};
+
+			Name = GroupName;
+			Font = new Font("Comic Sans MS", 12F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(204)));
+			ForeColor = SystemColors.Info;
+			Location = new Point(3, 3);
+			Size = new Size(320, 200);
+			TabIndex = 2;
+			TabStop = false;
 
 			BuildingPicture = new PictureBox
 			{
@@ -103,26 +101,20 @@ namespace SpaceColony.view
 			};
 			//BuildButton.Click += BuildButton_Click;
 
-			BuildingBox.Controls.Add(BuildingPicture);
-			BuildingBox.Controls.Add(BuildingSettings);
-			BuildingBox.Controls.Add(BuildButton);
+			Controls.Add(BuildingPicture);
+			Controls.Add(BuildingSettings);
+			Controls.Add(BuildButton);
 		}
 
 		public string GroupName { get; }
 		abstract public string BoxName { get; }
 		abstract public string BoxImagePath { get; }
-		public GroupBox BuildingBox { get; }
+		//public GroupBox BuildingBox { get; }
 		public PictureBox BuildingPicture { get; }
 		public ComboBox BuildingsList { get; }
 		public Label BuildingLevel { get; }
 		public Button ImproveButton { get; }
 		public FlowLayoutPanel BuildingSettings { get; }
 		public Button BuildButton { get; }
-
-		public GroupBox GetBuildingView()
-		{
-			return BuildingBox;
-		}
-
 	}
 }
