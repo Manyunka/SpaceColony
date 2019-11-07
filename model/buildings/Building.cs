@@ -33,7 +33,7 @@ namespace SpaceColony.Model
 			if (Colony.AllowedPay(this))
 			{
 				Level++;
-				Cost += Cost;
+				Cost *= 2;
 			}
 		}
     }

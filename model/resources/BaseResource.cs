@@ -28,5 +28,11 @@ namespace SpaceColony.Model
 		{
 			return a.Sub(b);
 		}
+
+		protected abstract BaseResource Multi(int n);
+		public static BaseResource operator *(BaseResource a, int n)
+		{
+			return a.Multi(n);
+		}
 	}
 }

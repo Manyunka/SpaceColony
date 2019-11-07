@@ -24,5 +24,11 @@ namespace SpaceColony.Model
 			Crystals res = new Crystals(Amount - b.Amount);
 			return res;
 		}
+
+		protected override BaseResource Multi(int n)
+		{
+			Crystals res = new Crystals(Amount * n);
+			return res;
+		}
 	}
 }

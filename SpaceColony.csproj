@@ -60,10 +60,13 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="model\BuildingSave.cs" />
     <Compile Include="model\buildings\CrystalsControl.cs" />
     <Compile Include="model\buildings\CrystalsMiner.cs" />
     <Compile Include="model\buildings\EnergyMiner.cs" />
     <Compile Include="model\buildings\IMiner.cs" />
+    <Compile Include="model\ColonySave.cs" />
+    <Compile Include="model\ResourcesSave.cs" />
     <Compile Include="model\resources\BaseResource.cs" />
     <Compile Include="model\resources\Crystals.cs" />
     <Compile Include="model\resources\Energy.cs" />
@@ -79,7 +82,7 @@
     </Compile>
     <Compile Include="model\Planet.cs" />
     <Compile Include="model\resources\Resources.cs" />
-    <Compile Include="model\Save.cs" />
+    <Compile Include="model\PlanetSave.cs" />
     <Compile Include="model\Space.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

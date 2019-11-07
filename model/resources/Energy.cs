@@ -24,5 +24,11 @@ namespace SpaceColony.Model
 			Energy res = new Energy(Amount - b.Amount);
 			return res;
 		}
+
+		protected override BaseResource Multi(int n)
+		{
+			Energy res = new Energy(Amount * n);
+			return res;
+		}
 	}
 }

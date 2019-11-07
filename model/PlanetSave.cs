@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace SpaceColony.Model
 {
-	class Save
+	class PlanetSave
 	{
 		public string Name { get; set; }
 		public string Descript { get; set; }
 		public string ImagePath { get; set; }
-		public int Crystals { get; set; }
-		public int Energy { get; set; }
-		public Colony Colony { get; set; }
+		public ResourcesSave Resources { get; set; }
+		public ColonySave Colony { get; set; }
 	}
 }

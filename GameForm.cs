@@ -90,19 +90,105 @@ namespace SpaceColony
 		private void SaveStripMenuItem_Click(object sender, EventArgs e)
 		{
 			IList<Planet> planets = space.Planets;
-			IList<Save> data = new List<Save>();
+			IList<PlanetSave> data = new List<PlanetSave>();
+
+			var baseBuildings = new List<BuildingSave>();
+			foreach (var building in colony.BaseBuildings)
+			{
+				baseBuildings.Add(new BuildingSave()
+				{
+					Level = building.Level,
+					Cost = new ResourcesSave()
+					{
+						Crystals = building.Cost.GetResource<Crystals>(),
+						Energy = building.Cost.GetResource<Energy>()
+					},
+				});
+			}
+
+			var crystalsControlBuildings = new List<BuildingSave>();
+			foreach (var building in colony.CrystalsControlBuildings)
+			{
+				crystalsControlBuildings.Add(new BuildingSave()
+				{
+					Level = building.Level,
+					Cost = new ResourcesSave()
+					{
+						Crystals = building.Cost.GetResource<Crystals>(),
+						Energy = building.Cost.GetResource<Energy>()
+					},
+				});
+			}
+
+			var energyControlBuildings = new List<BuildingSave>();
+			foreach (var building in colony.EnergyControlBuildings)
+			{
+				energyControlBuildings.Add(new BuildingSave()
+				{
+					Level = building.Level,
+					Cost = new ResourcesSave()
+					{
+						Crystals = building.Cost.GetResource<Crystals>(),
+						Energy = building.Cost.GetResource<Energy>()
+					},
+				});
+			}
+
+			var crystalsMiners = new List<BuildingSave>();
+			foreach (var building in colony.CrystalsMiners)
+			{
+				crystalsMiners.Add(new BuildingSave()
+				{
+					Level = building.Level,
+					Cost = new ResourcesSave()
+					{
+						Crystals = building.Cost.GetResource<Crystals>(),
+						Energy = building.Cost.GetResource<Energy>()
+					},
+				});
+			}
+
+			var energyMiners = new List<BuildingSave>();
+			foreach (var building in colony.EnergyMiners)
+			{
+				energyMiners.Add(new BuildingSave()
+				{
+					Level = building.Level,
+					Cost = new ResourcesSave()
+					{
+						Crystals = building.Cost.GetResource<Crystals>(),
+						Energy = building.Cost.GetResource<Energy>()
+					},
+				});
+			}
 
 			foreach (Planet planet in planets)
 			{
-				data.Add(new Save()
+				data.Add(new PlanetSave()
 				{
 					Name = planet.Name,
 					Descript = planet.Descript,
 					ImagePath = planet.ImagePath,
-					Crystals = planet.Resources.GetResource<Crystals>(),
-					Energy = planet.Resources.GetResource<Energy>(),
-					//Colony = planet.Colony
-				}) ;
+					Resources = new ResourcesSave()
+					{
+						Crystals = planet.Resources.GetResource<Crystals>(),
+						Energy = planet.Resources.GetResource<Energy>()
+					},
+					Colony = new ColonySave()
+					{
+						Name = colony.Name,
+						Resources = new ResourcesSave()
+						{
+							Crystals = colony.Resources.GetResource<Crystals>(),
+							Energy = colony.Resources.GetResource<Energy>()
+						},
+						BaseBuildings = baseBuildings,
+						CrystalsControlBuildings = crystalsControlBuildings,
+						EnergyControlBuildings = energyControlBuildings,
+						CrystalsMiners = crystalsMiners,
+						EnergyMiners = energyMiners
+					}
+				});
 			}
 
 			string json = JsonConvert.SerializeObject(data.ToArray());

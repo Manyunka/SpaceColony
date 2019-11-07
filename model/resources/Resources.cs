@@ -75,5 +75,14 @@ namespace SpaceColony.Model
 		}
 
 		//public event Action Empty;
+
+		public static Resources operator *(Resources a, int n)
+		{
+			ICollection<BaseResource> c = a.GetResources();
+			ICollection<BaseResource> s = new List<BaseResource>();
+			foreach (var item in c) s.Add(item * n);
+			Resources res = new Resources(s.ToList());
+			return res;
+		}
 	}
 }
