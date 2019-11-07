@@ -1,5 +1,4 @@
-﻿using SpaceColony.model;
-using SpaceColony.Model;
+﻿using SpaceColony.Model;
 using SpaceColony.view;
 using System;
 using System.Collections.Generic;
@@ -22,13 +21,13 @@ namespace SpaceColony
 		{
 			return new List<Planet>
 			{
-				new Planet("Проксима b",
+				new Planet(space, "Проксима b",
 				Path.Combine(Environment.CurrentDirectory, "Pictures", "Proxima-b.jpg"),
 				"Планета, вращающаяся вокруг красного карлика Проксима Центавра, ближайшей к Солнцу звезды."),
-				new Planet("Дульсинея",
+				new Planet(space, "Дульсинея",
 				Path.Combine(Environment.CurrentDirectory, "Pictures", "Dulcinea.jpg"),
 				"Планета-гигант, вращающаяся вокруг жёлтого карлика, в созвездии Жертвенник на расстоянии 50,6 св.л. от Земли."),
-				new Planet("Эгир",
+				new Planet(space, "Эгир",
 				Path.Combine(Environment.CurrentDirectory, "Pictures", "Egir.jpg"),
 				"Планета, обнаруженная у подобной Солнцу звезды Эпсилон Эридана, находящейся на расстоянии примерно 10,5 световых лет от Солнечной системы в созвездии Эридан.")
 			};
@@ -85,7 +84,7 @@ namespace SpaceColony
 			Planet colonyPlanet = space.Planets[PLANET_INDEX];
 
 			Hide();
-			GameForm game = new GameForm(colonyPlanet);
+			GameForm game = new GameForm(space, colonyPlanet);
 			game.ShowDialog();
 			Close();
 		}

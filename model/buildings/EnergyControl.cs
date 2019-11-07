@@ -13,9 +13,6 @@ namespace SpaceColony.Model
 		public EnergyControl(Colony colony) : base(colony)
 		{
 		}
-
-		public override string Name => "Управление энергетикой";
-		public override string Descript => "";
 		protected override int StartedCrystalsCost => startedCrystalsCost;
 		protected override int StartedEnergyCost => startedEnergyCost;
 	}

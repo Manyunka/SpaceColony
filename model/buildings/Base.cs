@@ -14,8 +14,6 @@ namespace SpaceColony.Model
 		public Base(Colony colony) : base(colony)
         {
         }
-		public override string Name => "База";
-		public override string Descript => "";
 		protected override int StartedCrystalsCost => startedCrystalsCost;
 		protected override int StartedEnergyCost => startedEnergyCost;
 	}

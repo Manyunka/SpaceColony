@@ -16,9 +16,6 @@ namespace SpaceColony.Model
 		{
 		}
 
-		public override string Name => "Электростанция";
-		public override string Descript => "";
-
 		public int MinePerSecond => startedMine;
 
 		protected override int StartedCrystalsCost => startedCrystalsCost;
@@ -29,10 +26,10 @@ namespace SpaceColony.Model
 			int mine = MinePerSecond * Level;
 			ICollection<BaseResource> amount = new List<BaseResource> { new Crystals(0), new Energy(mine) };
 			Resources resources = new Resources(amount);
-			if (Colony.Planet.TakeResource(resources))
+			Resources res = Colony.Planet.TakeResource(resources);
+			if (res != null)
 			{
-				Colony.AddResources(new Resources(amount));
-
+				Colony.AddResources(res);
 			}
 		}
 	}

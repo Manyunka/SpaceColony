@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceColony.model
+namespace SpaceColony.Model
 {
-	class Space
+	public class Space
 	{
 		public Space(IList<Planet> planets)
 		{

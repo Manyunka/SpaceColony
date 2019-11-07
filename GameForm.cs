@@ -1,4 +1,5 @@
-﻿using SpaceColony.Model;
+﻿using Newtonsoft.Json;
+using SpaceColony.Model;
 using SpaceColony.view;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace SpaceColony
 {
 	public partial class GameForm : Form
 	{
+		private readonly Space space;
 		private readonly Planet planet;
 		private readonly Colony colony;
 
-		public GameForm(Planet planet)
+		public GameForm(Space space, Planet planet)
 		{
+			this.space = space;
 			this.planet = planet;
 			colony = planet.Colony;
 
@@ -53,7 +56,7 @@ namespace SpaceColony
 		}
 
 		private void ShowResources()
-		{ 
+		{
 			crystalsScore.Text = "Кристаллы: " + colony.Resources.GetResource<Crystals>() + "/" + planet.Resources.GetResource<Crystals>();
 			energyScore.Text = "Энергия: " + colony.Resources.GetResource<Energy>() + "/" + planet.Resources.GetResource<Energy>();
 		}
@@ -64,6 +67,46 @@ namespace SpaceColony
 				crystalsMiner.MineResources();
 			foreach (EnergyMiner energyMiner in colony.EnergyMiners)
 				energyMiner.MineResources();
+		}
+
+		private void MenuButton_Click(object sender, EventArgs e)
+		{
+			contextMenuStrip.Show(menuButton, new Point(-contextMenuStrip.Width + menuButton.Width, menuButton.Height));
+		}
+
+		private void MenuStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Hide();
+			MenuForm menu = new MenuForm();
+			menu.ShowDialog();
+			Close();
+		}
+
+		private void ExitStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Application.Exit();
+		}
+
+		private void SaveStripMenuItem_Click(object sender, EventArgs e)
+		{
+			IList<Planet> planets = space.Planets;
+			IList<Save> data = new List<Save>();
+
+			foreach (Planet planet in planets)
+			{
+				data.Add(new Save()
+				{
+					Name = planet.Name,
+					Descript = planet.Descript,
+					ImagePath = planet.ImagePath,
+					Crystals = planet.Resources.GetResource<Crystals>(),
+					Energy = planet.Resources.GetResource<Energy>(),
+					//Colony = planet.Colony
+				}) ;
+			}
+
+			string json = JsonConvert.SerializeObject(data.ToArray());
+			System.IO.File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Save.text"), json);
 		}
 	}
 }

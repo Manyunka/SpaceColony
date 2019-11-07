@@ -31,7 +31,10 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.buildingPanel = new System.Windows.Forms.FlowLayoutPanel();
-			this.MenuButton = new System.Windows.Forms.Button();
+			this.menuButton = new System.Windows.Forms.Button();
+			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.menuStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dataBox = new System.Windows.Forms.GroupBox();
 			this.crystalsPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -42,6 +45,8 @@
 			this.colonyName = new System.Windows.Forms.Label();
 			this.planetName = new System.Windows.Forms.Label();
 			this.mineTimer = new System.Windows.Forms.Timer(this.components);
+			this.saveStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextMenuStrip.SuspendLayout();
 			this.dataBox.SuspendLayout();
 			this.crystalsPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,18 +64,46 @@
 			this.buildingPanel.Size = new System.Drawing.Size(360, 469);
 			this.buildingPanel.TabIndex = 0;
 			// 
-			// MenuButton
+			// menuButton
 			// 
-			this.MenuButton.AutoSize = true;
-			this.MenuButton.BackColor = System.Drawing.Color.Black;
-			this.MenuButton.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.MenuButton.ForeColor = System.Drawing.SystemColors.Info;
-			this.MenuButton.Location = new System.Drawing.Point(750, 21);
-			this.MenuButton.Name = "MenuButton";
-			this.MenuButton.Size = new System.Drawing.Size(82, 36);
-			this.MenuButton.TabIndex = 3;
-			this.MenuButton.Text = "Меню";
-			this.MenuButton.UseVisualStyleBackColor = false;
+			this.menuButton.AutoSize = true;
+			this.menuButton.BackColor = System.Drawing.Color.Black;
+			this.menuButton.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.menuButton.ForeColor = System.Drawing.SystemColors.Info;
+			this.menuButton.Location = new System.Drawing.Point(750, 21);
+			this.menuButton.Name = "menuButton";
+			this.menuButton.Size = new System.Drawing.Size(82, 36);
+			this.menuButton.TabIndex = 3;
+			this.menuButton.Text = "Меню";
+			this.menuButton.UseVisualStyleBackColor = false;
+			this.menuButton.Click += new System.EventHandler(this.MenuButton_Click);
+			// 
+			// contextMenuStrip
+			// 
+			this.contextMenuStrip.BackColor = System.Drawing.Color.Black;
+			this.contextMenuStrip.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStripMenuItem,
+            this.saveStripMenuItem,
+            this.exitStripMenuItem});
+			this.contextMenuStrip.Name = "contextMenuStrip";
+			this.contextMenuStrip.Size = new System.Drawing.Size(191, 110);
+			// 
+			// menuStripMenuItem
+			// 
+			this.menuStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.menuStripMenuItem.Name = "menuStripMenuItem";
+			this.menuStripMenuItem.Size = new System.Drawing.Size(190, 28);
+			this.menuStripMenuItem.Text = "Главное меню";
+			this.menuStripMenuItem.Click += new System.EventHandler(this.MenuStripMenuItem_Click);
+			// 
+			// exitStripMenuItem
+			// 
+			this.exitStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.exitStripMenuItem.Name = "exitStripMenuItem";
+			this.exitStripMenuItem.Size = new System.Drawing.Size(190, 28);
+			this.exitStripMenuItem.Text = "Выход";
+			this.exitStripMenuItem.Click += new System.EventHandler(this.ExitStripMenuItem_Click);
 			// 
 			// dataBox
 			// 
@@ -173,13 +206,22 @@
 			this.mineTimer.Interval = 1000;
 			this.mineTimer.Tick += new System.EventHandler(this.MineTimer_Tick);
 			// 
+			// saveStripMenuItem
+			// 
+			this.saveStripMenuItem.BackColor = System.Drawing.Color.Black;
+			this.saveStripMenuItem.ForeColor = System.Drawing.SystemColors.Info;
+			this.saveStripMenuItem.Name = "saveStripMenuItem";
+			this.saveStripMenuItem.Size = new System.Drawing.Size(190, 28);
+			this.saveStripMenuItem.Text = "Сохранить";
+			this.saveStripMenuItem.Click += new System.EventHandler(this.SaveStripMenuItem_Click);
+			// 
 			// GameForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
 			this.ClientSize = new System.Drawing.Size(844, 521);
 			this.Controls.Add(this.dataBox);
-			this.Controls.Add(this.MenuButton);
+			this.Controls.Add(this.menuButton);
 			this.Controls.Add(this.buildingPanel);
 			this.Font = new System.Drawing.Font("Comic Sans MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -188,6 +230,7 @@
 			this.Name = "GameForm";
 			this.Text = "Space Colony";
 			this.Load += new System.EventHandler(this.GameForm_Load);
+			this.contextMenuStrip.ResumeLayout(false);
 			this.dataBox.ResumeLayout(false);
 			this.dataBox.PerformLayout();
 			this.crystalsPanel.ResumeLayout(false);
@@ -213,7 +256,11 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.PictureBox pictureBox2;
-		private System.Windows.Forms.Button MenuButton;
+		private System.Windows.Forms.Button menuButton;
 		private System.Windows.Forms.Timer mineTimer;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem menuStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem exitStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveStripMenuItem;
 	}
 }

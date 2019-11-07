@@ -8,3 +8,7 @@ D:\myProjects\SpaceColony\obj\Debug\SpaceColony.exe
 D:\myProjects\SpaceColony\obj\Debug\SpaceColony.pdb
 D:\myProjects\SpaceColony\obj\Debug\SpaceColony.GameForm.resources
 D:\myProjects\SpaceColony\obj\Debug\SpaceColony.MenuForm.resources
+D:\myProjects\SpaceColony\bin\Debug\Json.Net.dll
+D:\myProjects\SpaceColony\bin\Debug\Newtonsoft.Json.dll
+D:\myProjects\SpaceColony\bin\Debug\Newtonsoft.Json.xml
+D:\myProjects\SpaceColony\obj\Debug\SpaceColony.csproj.CopyComplete

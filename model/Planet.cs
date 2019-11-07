@@ -11,8 +11,9 @@ namespace SpaceColony.Model
     {
 		private const int startedCrystals = 105000;
 		private const int startedEnergy = 200000;
-		public Planet(string name, string image, string descript)
+		public Planet(Space space, string name, string image, string descript)
         {
+			Space = space;
             Name = name;
 			ImagePath = image;
 			Descript = descript;
@@ -23,6 +24,7 @@ namespace SpaceColony.Model
 		}
 
 		public Resources Resources { get; private set; }
+		public Space Space { get; }
 
 		public string Name { get; }
         public string Descript { get; }
@@ -38,14 +40,19 @@ namespace SpaceColony.Model
 
 		}
 
-		public bool TakeResource(Resources resources)
+		public Resources TakeResource(Resources resources)
 		{
 			if (Resources - resources != null)
 			{
 				Resources -= resources;
-				return true;
+				return resources;
 			}
-			return false;
+			else if (Resources != null)
+			{
+				Resources = null;
+				return Resources;
+			}
+			else return null;
 		}
 	}
 }

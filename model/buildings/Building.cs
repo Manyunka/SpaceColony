@@ -25,8 +25,6 @@ namespace SpaceColony.Model
 		abstract protected int StartedEnergyCost { get; }
 
 		public Colony Colony { get;}
-		abstract public string Name { get; }
-        abstract public string Descript { get; }
         public int Level { get; private set; }
 		public Resources Cost { get; protected set; }
 
