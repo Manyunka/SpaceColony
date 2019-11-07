@@ -9,11 +9,6 @@ namespace SpaceColony.Model
 {
 	public class Space
 	{
-		public Space(IList<Planet> planets)
-		{
-			Planets = planets;
-		}
-
-		public IList<Planet> Planets { get; }
+		public IList<Planet> Planets { get; set; }
 	}
 }

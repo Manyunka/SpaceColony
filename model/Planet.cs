@@ -11,14 +11,20 @@ namespace SpaceColony.Model
     {
 		private const int startedCrystals = 105000;
 		private const int startedEnergy = 200000;
-		public Planet(Space space, string name, string image, string descript)
+		public Planet(
+			Space space,
+			string name,
+			string image,
+			string descript,
+			int sCrystal = startedCrystals, int sEnergy = startedEnergy
+			)
         {
 			Space = space;
             Name = name;
 			ImagePath = image;
 			Descript = descript;
-			Crystals crystals = new Crystals(startedCrystals);
-			Energy energy = new Energy(startedEnergy);
+			Crystals crystals = new Crystals(sCrystal);
+			Energy energy = new Energy(sEnergy);
 			List<BaseResource> resources = new List<BaseResource> { crystals, energy };
 			Resources = new Resources(resources);
 		}
@@ -30,11 +36,14 @@ namespace SpaceColony.Model
         public string Descript { get; }
 		public string ImagePath { get; }
 		public Colony Colony { get; private set; }
-        public void CreateColony(string name)
+        public void CreateColony(string name, int crystals = -1, int energy = -1)
         {
 			if (Colony == null)
 			{
-				Colony = new Colony(name, this);
+				if (crystals != -1 && energy != -1) Colony = new Colony(name, this, crystals, energy);
+				else if (crystals == -1 && energy != -1) Colony = new Colony(name, this, energy);
+				else if (crystals != -1 && energy == -1) Colony = new Colony(name, this, crystals);
+				else Colony = new Colony(name, this);
 			}
 			else MessageBox.Show("Колония уже создана");
 

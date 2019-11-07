@@ -12,7 +12,8 @@ namespace SpaceColony.Model
 		private const int startedEnergyCost = 3000;
 		private const int startedMine = 5;
 
-		public CrystalsMiner(Colony colony) : base(colony)
+		public CrystalsMiner(Colony colony, int level = 1, int sCrystal = -1, int sEnergy = -1)
+			: base(colony, level, sCrystal, sEnergy)
 		{
 		}
 

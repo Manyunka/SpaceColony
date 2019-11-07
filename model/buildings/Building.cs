@@ -8,12 +8,12 @@ namespace SpaceColony.Model
 {
     public abstract class Building
     {
-		public Building(Colony colony)
+		public Building(Colony colony, int level, int sCrystal, int sEnergy)
         {
 			Colony = colony;
-            Level = 1;
-			Crystals crystals = new Crystals(StartedCrystalsCost);
-			Energy energy = new Energy(StartedEnergyCost);
+            Level = level;
+			Crystals crystals = new Crystals(sCrystal != -1 ? sCrystal : StartedCrystalsCost);
+			Energy energy = new Energy(sEnergy != -1 ? sEnergy : StartedEnergyCost);
 			List<BaseResource> resources = new List<BaseResource> { crystals, energy };
 			Cost = new Resources(resources);
 			//Colony.Planet.Resource.Empty += () => { 

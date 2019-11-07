@@ -19,6 +19,19 @@ namespace SpaceColony.view
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
+
+			for (int i = 0; i < colony.EnergyMiners.Count; i++)
+			{
+				BuildingsList.Items.Add(i + 1);
+				BuildingsList.Text = colony.EnergyMiners.Count.ToString();
+
+				BuildingLevel.Text = "Уровень: " + colony.EnergyMiners[i].Level;
+
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 		public override string BoxName => "Электростанция";
 		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "energy_miner.png");
@@ -38,10 +51,8 @@ namespace SpaceColony.view
 
 		private void BuildButton_Click(object sender, EventArgs e)
 		{
-			if (colony.MinerISAllowed(1))
+			if (colony.BuildMiner(1))
 			{
-				colony.BuildMiner(1);
-
 				BuildingsList.Items.Add(colony.EnergyMiners.Count);
 				BuildingsList.Text = colony.EnergyMiners.Count.ToString();
 

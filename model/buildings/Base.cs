@@ -11,7 +11,8 @@ namespace SpaceColony.Model
     {
 		private const int startedCrystalsCost = 5000;
 		private const int startedEnergyCost = 7000;
-		public Base(Colony colony) : base(colony)
+		public Base(Colony colony, int level = 1, int sCrystal = -1, int sEnergy = -1)
+			: base(colony, level, sCrystal, sEnergy)
         {
         }
 		protected override int StartedCrystalsCost => startedCrystalsCost;

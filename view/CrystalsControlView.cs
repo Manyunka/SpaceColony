@@ -18,6 +18,19 @@ namespace SpaceColony.view
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
+
+			for (int i = 0; i < colony.CrystalsControlBuildings.Count; i++)
+			{
+				BuildingsList.Items.Add(i + 1);
+				BuildingsList.Text = colony.CrystalsControlBuildings.Count.ToString();
+
+				BuildingLevel.Text = "Уровень: " + colony.CrystalsControlBuildings[i].Level;
+
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 		public override string BoxName => "Управление добычи кристаллов";
 		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "crystals_control.png");
@@ -37,10 +50,8 @@ namespace SpaceColony.view
 
 		private void BuildButton_Click(object sender, EventArgs e)
 		{
-			if (colony.ControlISAllowed())
+			if (colony.BuildControl(0))
 			{
-				colony.BuildControl(0);
-
 				BuildingsList.Items.Add(colony.CrystalsControlBuildings.Count);
 				BuildingsList.Text = colony.CrystalsControlBuildings.Count.ToString();
 

@@ -19,6 +19,19 @@ namespace SpaceColony.view
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
+
+			for (int i = 0; i < colony.EnergyControlBuildings.Count; i++)
+			{
+				BuildingsList.Items.Add(i + 1);
+				BuildingsList.Text = colony.EnergyControlBuildings.Count.ToString();
+
+				BuildingLevel.Text = "Уровень: " + colony.EnergyControlBuildings[i].Level;
+
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 		public override string BoxName => "Управление энергетикой";
 		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "energy_control.png");
@@ -38,10 +51,8 @@ namespace SpaceColony.view
 
 		private void BuildButton_Click(object sender, EventArgs e)
 		{
-			if (colony.ControlISAllowed())
+			if (colony.BuildControl(1))
 			{
-				colony.BuildControl(1);
-
 				BuildingsList.Items.Add(colony.EnergyControlBuildings.Count);
 				BuildingsList.Text = colony.EnergyControlBuildings.Count.ToString();
 

@@ -9,13 +9,13 @@ namespace SpaceColony.Model
 {
 	public class Colony
 	{
-		private const int startedCrystals = 15000;
-		private const int startedEnergy = 20000;
-		public Colony(string name, Planet planet)
+		private const int startedCrystals = 150000;
+		private const int startedEnergy = 200000;
+		public Colony(string name, Planet planet, int sCrystal = startedCrystals, int sEnergy = startedEnergy)
 		{
 			Name = name;
-			Crystals crystals = new Crystals(startedCrystals);
-			Energy energy = new Energy(startedEnergy);
+			Crystals crystals = new Crystals(sCrystal);
+			Energy energy = new Energy(sEnergy);
 			List<BaseResource> resources = new List<BaseResource> { crystals, energy };
 			Resources = new Resources(resources);
 			Planet = planet;
@@ -36,28 +36,43 @@ namespace SpaceColony.Model
 		public IList<CrystalsMiner> CrystalsMiners { get; private set; }
 		public IList<EnergyMiner> EnergyMiners { get; private set; }
 
-		public void BuildBase()
+		public bool BuildBase()
 		{
 			Base newBase = new Base(this);
 			if (AllowedPay(newBase))
+			{
 				BaseBuildings.Add(newBase);
+				return true;
+			}
+			return false;
 		}
 
-		public void BuildControl(int type)
+		public bool BuildControl(int type)
 		{
-			switch (type)
+			if (ControlISAllowed())
 			{
-				case 0:
-					CrystalsControl crystalsControl = new CrystalsControl(this);
-					if (AllowedPay(crystalsControl))
-						CrystalsControlBuildings.Add(crystalsControl);
-					break;
-				case 1:
-					EnergyControl energyControl = new EnergyControl(this);
-					if (AllowedPay(energyControl))
-						EnergyControlBuildings.Add(energyControl);
-					break;
+				switch (type)
+				{
+					case 0:
+						CrystalsControl crystalsControl = new CrystalsControl(this);
+						if (AllowedPay(crystalsControl))
+						{
+							CrystalsControlBuildings.Add(crystalsControl);
+							return true;
+						}
+						break;
+					case 1:
+						EnergyControl energyControl = new EnergyControl(this);
+						if (AllowedPay(energyControl))
+						{
+							EnergyControlBuildings.Add(energyControl);
+							return true;
+						}
+						break;
+				}
 			}
+
+			return false;
 		}
 
 		public bool ControlISAllowed()
@@ -68,21 +83,32 @@ namespace SpaceColony.Model
 			return false;
 		}
 
-		public void BuildMiner(int type)
+		public bool BuildMiner(int type)
 		{
-			switch (type)
+			if (MinerISAllowed(type))
 			{
-				case 0:
-					CrystalsMiner crystalsMiner = new CrystalsMiner(this);
-					if (AllowedPay(crystalsMiner))
-						CrystalsMiners.Add(crystalsMiner);
-					break;
-				case 1:
-					EnergyMiner energyMiner = new EnergyMiner(this);
-					if (AllowedPay(energyMiner))
-						EnergyMiners.Add(energyMiner);
-					break;
+				switch (type)
+				{
+					case 0:
+						CrystalsMiner crystalsMiner = new CrystalsMiner(this);
+						if (AllowedPay(crystalsMiner))
+						{
+							CrystalsMiners.Add(crystalsMiner);
+							return true;
+						}
+						break;
+					case 1:
+						EnergyMiner energyMiner = new EnergyMiner(this);
+						if (AllowedPay(energyMiner))
+						{
+							EnergyMiners.Add(energyMiner);
+							return true;
+						}
+						break;
+				}
 			}
+
+			return false;
 		}
 
 		public bool MinerISAllowed(int type)

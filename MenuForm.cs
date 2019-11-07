@@ -1,4 +1,5 @@
-﻿using SpaceColony.Model;
+﻿using Newtonsoft.Json;
+using SpaceColony.Model;
 using SpaceColony.view;
 using System;
 using System.Collections.Generic;
@@ -7,17 +8,17 @@ using System.Windows.Forms;
 
 namespace SpaceColony
 {
-    public partial class MenuForm : Form
-    {
+	public partial class MenuForm : Form
+	{
 		int PLANET_INDEX = -1;
 		Space space;
 
 		public MenuForm()
-        {
-            InitializeComponent();
-        }
+		{
+			InitializeComponent();
+		}
 
-		private IList<Planet> GetPlanets()
+		private IList<Planet> GetNewPlanets()
 		{
 			return new List<Planet>
 			{
@@ -33,12 +34,97 @@ namespace SpaceColony
 			};
 		}
 
-		private void Form1_Load(object sender, EventArgs e)
+		private IList<Planet> GetSavingPlanets()
 		{
+			IList<Planet> planets = new List<Planet>();
+			List<PlanetSave> planetsSave = JsonConvert.DeserializeObject<List<PlanetSave>>(
+				File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "Save.text")));
+			foreach (var planetSave in planetsSave)
+			{
+				var planet = new Planet(
+					space,
+					planetSave.Name,
+					planetSave.ImagePath,
+					planetSave.Descript,
+					planetSave.Resources.Crystals,
+					planetSave.Resources.Energy
+					);
+
+				if (planetSave.Colony != null)
+				{
+					planet.CreateColony(
+						planetSave.Colony.Name,
+						planetSave.Colony.Resources.Crystals,
+						planetSave.Colony.Resources.Energy
+						);
+
+					foreach (var building in planetSave.Colony.BaseBuildings)
+					{
+						planet.Colony.BaseBuildings.Add(new Base(
+							planet.Colony,
+							building.Level,
+							building.Cost.Crystals,
+							building.Cost.Energy
+							));
+					}
+
+					foreach (var building in planetSave.Colony.CrystalsControlBuildings)
+					{
+						planet.Colony.CrystalsControlBuildings.Add(new CrystalsControl(
+							planet.Colony,
+							building.Level,
+							building.Cost.Crystals,
+							building.Cost.Energy
+							));
+					}
+
+					foreach (var building in planetSave.Colony.EnergyControlBuildings)
+					{
+						planet.Colony.EnergyControlBuildings.Add(new EnergyControl(
+							planet.Colony,
+							building.Level,
+							building.Cost.Crystals,
+							building.Cost.Energy
+							));
+					}
+
+					foreach (var building in planetSave.Colony.CrystalsMiners)
+					{
+						planet.Colony.CrystalsMiners.Add(new CrystalsMiner(
+							planet.Colony,
+							building.Level,
+							building.Cost.Crystals,
+							building.Cost.Energy
+							));
+					}
+
+					foreach (var building in planetSave.Colony.EnergyMiners)
+					{
+						planet.Colony.EnergyMiners.Add(new EnergyMiner(
+							planet.Colony,
+							building.Level,
+							building.Cost.Crystals,
+							building.Cost.Energy
+							));
+					}
+				}
+
+				planets.Add(planet);
+			}
+
+			return planets;
+		}
+
+		private void MenuForm_Load(object sender, EventArgs e)
+		{
+			space = new Space();
 			createNextButton.Enabled = false;
+			if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "Save.text")))
+				continueButton.Enabled = false;
+		}
 
-			space = new Space(GetPlanets());
-
+		private void LoadPlanets()
+		{
 			for (int i = 0; i < 3; i++)
 			{
 				PlanetView planetView = new PlanetView("Planet" + i, space.Planets[i]);
@@ -46,12 +132,22 @@ namespace SpaceColony
 				planetView.PlanetFree.Tag = i;
 				planetLayoutPanel.Controls.Add(planetView);
 			}
-
-
 		}
 
-		private void StartButton_Click(object sender, EventArgs e)
+		private void NewGameButton_Click(object sender, EventArgs e)
 		{
+			if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Save.text")))
+				File.Delete(Path.Combine(Environment.CurrentDirectory, "Save.text"));
+			space.Planets = GetNewPlanets();
+			LoadPlanets();
+			planetPanel.BringToFront();
+		}
+
+
+		private void ContinueButton_Click(object sender, EventArgs e)
+		{
+			space.Planets = GetSavingPlanets();
+			LoadPlanets();
 			planetPanel.BringToFront();
 		}
 
@@ -63,8 +159,19 @@ namespace SpaceColony
 		private void PlanetButton_Click(object sender, EventArgs e)
 		{
 			PLANET_INDEX = (int)((Button)sender).Tag;
-			colonyPlanetNote.Text = space.Planets[PLANET_INDEX].Name;
-			createColonyPanel.BringToFront();
+
+			if (space.Planets[PLANET_INDEX].Colony != null)
+			{
+				Hide();
+				GameForm game = new GameForm(space, space.Planets[PLANET_INDEX]);
+				game.ShowDialog();
+				Close();
+			}
+			else
+			{
+				colonyPlanetNote.Text = space.Planets[PLANET_INDEX].Name;
+				createColonyPanel.BringToFront();
+			}
 		}
 
 		private void CreateBackButton_Click(object sender, EventArgs e)

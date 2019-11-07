@@ -19,6 +19,19 @@ namespace SpaceColony.view
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
+
+			for (int i = 0; i < colony.CrystalsMiners.Count; i++)
+			{
+				BuildingsList.Items.Add(i + 1);
+				BuildingsList.Text = colony.CrystalsMiners.Count.ToString();
+
+				BuildingLevel.Text = "Уровень: " + colony.CrystalsMiners[i].Level;
+
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 		public override string BoxName => "Кристальный рудник";
 		public override string BoxImagePath => Path.Combine(Environment.CurrentDirectory, "Pictures", "crystals_miner.png");
@@ -38,10 +51,8 @@ namespace SpaceColony.view
 
 		private void BuildButton_Click(object sender, EventArgs e)
 		{
-			if (colony.MinerISAllowed(0))
+			if (colony.BuildMiner(0))
 			{
-				colony.BuildMiner(0);
-
 				BuildingsList.Items.Add(colony.CrystalsMiners.Count);
 				BuildingsList.Text = colony.CrystalsMiners.Count.ToString();
 

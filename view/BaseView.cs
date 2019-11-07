@@ -18,6 +18,19 @@ namespace SpaceColony.view
 			BuildButton.Click += BuildButton_Click;
 			ImproveButton.Click += ImproveButton_Click;
 			BuildingsList.SelectedIndexChanged += BuildingsList_SelectedIndexChanged;
+
+			for (int i = 0; i < colony.BaseBuildings.Count; i++)
+			{
+				BuildingsList.Items.Add(i + 1);
+				BuildingsList.Text = colony.BaseBuildings.Count.ToString();
+
+				BuildingLevel.Text = "Уровень: " + colony.BaseBuildings[i].Level;
+
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 
 		private void ImproveButton_Click(object sender, EventArgs e)
@@ -35,17 +48,18 @@ namespace SpaceColony.view
 
 		private void BuildButton_Click(object sender, EventArgs e)
 		{
-			colony.BuildBase();
+			if (colony.BuildBase())
+			{
+				BuildingsList.Items.Add(colony.BaseBuildings.Count);
+				BuildingsList.Text = colony.BaseBuildings.Count.ToString();
 
-			BuildingsList.Items.Add(colony.BaseBuildings.Count);
-			BuildingsList.Text = colony.BaseBuildings.Count.ToString();
+				BuildingLevel.Text = "Уровень: " + 1;
 
-			BuildingLevel.Text = "Уровень: " + 1;
-
-			if (!ImproveButton.Visible)
-				ImproveButton.Visible = true;
-			if (!BuildingsList.Visible)
-				BuildingsList.Visible = true;
+				if (!ImproveButton.Visible)
+					ImproveButton.Visible = true;
+				if (!BuildingsList.Visible)
+					BuildingsList.Visible = true;
+			}
 		}
 
 		public override string BoxName => "Базы";

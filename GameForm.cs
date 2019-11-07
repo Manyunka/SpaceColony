@@ -164,8 +164,28 @@ namespace SpaceColony
 
 			foreach (Planet planet in planets)
 			{
+				ColonySave colony = null;
+				if (planet.Colony != null)
+				{
+					colony = new ColonySave()
+					{
+						Name = planet.Colony.Name,
+						Resources = new ResourcesSave()
+						{
+							Crystals = planet.Colony.Resources.GetResource<Crystals>(),
+							Energy = planet.Colony.Resources.GetResource<Energy>()
+						},
+						BaseBuildings = baseBuildings,
+						CrystalsControlBuildings = crystalsControlBuildings,
+						EnergyControlBuildings = energyControlBuildings,
+						CrystalsMiners = crystalsMiners,
+						EnergyMiners = energyMiners
+					};
+				}
+
 				data.Add(new PlanetSave()
 				{
+
 					Name = planet.Name,
 					Descript = planet.Descript,
 					ImagePath = planet.ImagePath,
@@ -174,25 +194,12 @@ namespace SpaceColony
 						Crystals = planet.Resources.GetResource<Crystals>(),
 						Energy = planet.Resources.GetResource<Energy>()
 					},
-					Colony = new ColonySave()
-					{
-						Name = colony.Name,
-						Resources = new ResourcesSave()
-						{
-							Crystals = colony.Resources.GetResource<Crystals>(),
-							Energy = colony.Resources.GetResource<Energy>()
-						},
-						BaseBuildings = baseBuildings,
-						CrystalsControlBuildings = crystalsControlBuildings,
-						EnergyControlBuildings = energyControlBuildings,
-						CrystalsMiners = crystalsMiners,
-						EnergyMiners = energyMiners
-					}
+					Colony = colony
 				});
 			}
 
 			string json = JsonConvert.SerializeObject(data.ToArray());
-			System.IO.File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Save.text"), json);
+			File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Save.text"), json);
 		}
 	}
 }

@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
-			this.startButton = new System.Windows.Forms.Button();
+			this.newGameButton = new System.Windows.Forms.Button();
 			this.logo = new System.Windows.Forms.Label();
 			this.startPanel = new System.Windows.Forms.Panel();
+			this.continueButton = new System.Windows.Forms.Button();
 			this.planetPanel = new System.Windows.Forms.Panel();
 			this.planetLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.planetBackButton = new System.Windows.Forms.Button();
@@ -47,18 +48,18 @@
 			this.createColonyPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// startButton
+			// newGameButton
 			// 
-			this.startButton.BackColor = System.Drawing.Color.Black;
-			this.startButton.Font = new System.Drawing.Font("Comic Sans MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.startButton.ForeColor = System.Drawing.SystemColors.Info;
-			this.startButton.Location = new System.Drawing.Point(320, 350);
-			this.startButton.Name = "startButton";
-			this.startButton.Size = new System.Drawing.Size(200, 56);
-			this.startButton.TabIndex = 0;
-			this.startButton.Text = "Начать";
-			this.startButton.UseVisualStyleBackColor = false;
-			this.startButton.Click += new System.EventHandler(this.StartButton_Click);
+			this.newGameButton.BackColor = System.Drawing.Color.Black;
+			this.newGameButton.Font = new System.Drawing.Font("Comic Sans MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.newGameButton.ForeColor = System.Drawing.SystemColors.Info;
+			this.newGameButton.Location = new System.Drawing.Point(325, 306);
+			this.newGameButton.Name = "newGameButton";
+			this.newGameButton.Size = new System.Drawing.Size(200, 56);
+			this.newGameButton.TabIndex = 0;
+			this.newGameButton.Text = "Новая игра";
+			this.newGameButton.UseVisualStyleBackColor = false;
+			this.newGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
 			// 
 			// logo
 			// 
@@ -75,13 +76,27 @@
 			// startPanel
 			// 
 			this.startPanel.BackColor = System.Drawing.Color.Transparent;
+			this.startPanel.Controls.Add(this.continueButton);
 			this.startPanel.Controls.Add(this.logo);
-			this.startPanel.Controls.Add(this.startButton);
+			this.startPanel.Controls.Add(this.newGameButton);
 			this.startPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.startPanel.Location = new System.Drawing.Point(0, 0);
 			this.startPanel.Name = "startPanel";
 			this.startPanel.Size = new System.Drawing.Size(844, 521);
 			this.startPanel.TabIndex = 2;
+			// 
+			// continueButton
+			// 
+			this.continueButton.BackColor = System.Drawing.Color.Black;
+			this.continueButton.Font = new System.Drawing.Font("Comic Sans MS", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.continueButton.ForeColor = System.Drawing.SystemColors.Info;
+			this.continueButton.Location = new System.Drawing.Point(325, 382);
+			this.continueButton.Name = "continueButton";
+			this.continueButton.Size = new System.Drawing.Size(200, 56);
+			this.continueButton.TabIndex = 2;
+			this.continueButton.Text = "Продолжить";
+			this.continueButton.UseVisualStyleBackColor = false;
+			this.continueButton.Click += new System.EventHandler(this.ContinueButton_Click);
 			// 
 			// planetPanel
 			// 
@@ -219,7 +234,7 @@
 			this.MinimumSize = new System.Drawing.Size(860, 560);
 			this.Name = "MenuForm";
 			this.Text = "Space Colony";
-			this.Load += new System.EventHandler(this.Form1_Load);
+			this.Load += new System.EventHandler(this.MenuForm_Load);
 			this.startPanel.ResumeLayout(false);
 			this.startPanel.PerformLayout();
 			this.planetPanel.ResumeLayout(false);
@@ -233,7 +248,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button startButton;
+		private System.Windows.Forms.Button newGameButton;
         private System.Windows.Forms.Label logo;
 		private System.Windows.Forms.Panel startPanel;
 		private System.Windows.Forms.Panel planetPanel;
@@ -246,6 +261,7 @@
 		private System.Windows.Forms.Button createNextButton;
 		private System.Windows.Forms.Label colonyPlanetNote;
 		private System.Windows.Forms.FlowLayoutPanel planetLayoutPanel;
+		private System.Windows.Forms.Button continueButton;
 	}
 }
 
